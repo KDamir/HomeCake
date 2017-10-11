@@ -5,8 +5,24 @@ import Navigation from '../Navigation/AppNavigation';
 class NavigationStore {
   @observable.ref navigationState = {
     index: 0,
-    routes: [
-      { key: 'MainScreen', routeName: 'MainScreen' },
+    routes: [{
+      index: 0,
+      routeName: 'MainScreen',
+      routes: [{
+        index: 0,
+        key: 'DrawerClose',
+        routeName: 'DrawerClose',
+        routes: [
+          { key: 'FirstScreen', routeName: 'FirstScreen' },
+          { key: 'SecondScreen', routeName: 'SecondScreen' }
+        ]
+      }, {
+        index: 1,
+        key: 'DrawerOpen',
+        routeName: 'DrawerOpen',
+      }
+      ],
+    },
     ],
   }
 
