@@ -1,6 +1,4 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
  * @flow
  */
 
@@ -12,14 +10,46 @@ import {
   View,
   Image,
 } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import { firebaseApp } from '../firebase';
 
 export default class SecondScreen extends React.Component {
+  state = {
+    messages: [],
+  }
+
+  componentWillMount() {
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://www.gitbook.com/cover/book/mongkuen/react.jpg',
+          },
+        },
+      ],
+    });
+  }
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }));
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Second Screen</Text>
-      </View>
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
     );
   }
 }
